@@ -12,10 +12,11 @@ l'énoncé : déléguer des tâches à l'IA puis relire/valider).
 MVP d'un **réseau social pour développeurs** : s'abonner à des thèmes de programmation,
 publier des articles, commenter, lire un fil d'actualité chronologique. **Pas de back-office.**
 
-> Toute la matière source (énoncé complet, specs PDF, guide mentor, maquettes) a été récupérée
-> par l'outil `octool` de l'utilisateur et vit dans
-> `C:\Users\max_l\WebstormProjects\octool\output\2935-6266\` (project.md + attachments/).
-> À consulter en référence, mais **ne pas committer** ce contenu de cours ici (copyright OC).
+> Toute la matière source est dans **`oc-reference/`** (à la racine, gitignorée) :
+> `project.md` (énoncé complet + chapitres + **guide mentor / grille d'évaluation**),
+> `attachments/` (specs, contraintes, fiches d'autoévaluation, templates), `assets/` (images).
+> À consulter en permanence pour construire à la spec. **Ne jamais committer** ce dossier
+> (contenu de cours OC — copyright). Il a été produit par l'outil `octool` de l'utilisateur.
 
 ## Périmètre fonctionnel (specs — à respecter strictement, ni plus ni moins)
 

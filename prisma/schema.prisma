@@ -1,5 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Schéma Prisma — MDD (Monde de Dév)
+// Réf. modèle de données : https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -10,13 +10,85 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// TODO: Define your data models here
-// Example:
-// model User {
-//   id        Int      @id @default(autoincrement())
-//   email     String   @unique
-//   username  String   @unique
-//   password  String
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
+/// Utilisateur du réseau : inscription (email + username + mot de passe),
+/// connexion par email OU username. Le mot de passe est stocké haché (bcrypt).
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  /// Hash du mot de passe — jamais le mot de passe en clair.
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  articles      Article[]
+  comments      Comment[]
+  subscriptions Subscription[]
+}
+
+/// Thème de programmation auquel un utilisateur peut s'abonner
+/// et sous lequel des articles sont publiés.
+model Topic {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  articles      Article[]
+  subscriptions Subscription[]
+}
+
+/// Article publié par un utilisateur dans un thème.
+/// Auteur et date sont renseignés automatiquement.
+model Article {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  topicId String
+  topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  comments Comment[]
+
+  @@index([authorId])
+  @@index([topicId])
+  @@index([createdAt])
+}
+
+/// Commentaire (non récursif) rattaché à un article.
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@index([articleId])
+  @@index([authorId])
+}
+
+/// Abonnement d'un utilisateur à un thème (table de jointure User <-> Topic).
+model Subscription {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  topicId String
+  topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, topicId])
+  @@index([userId])
+  @@index([topicId])
+}

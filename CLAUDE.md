@@ -35,8 +35,10 @@ publier des articles, commenter, lire un fil d'actualité chronologique. **Pas d
 
 - Back-end distinct du front-end, reliés par une **API sécurisée**.
 - **Next.js 16 (App Router)** obligatoire — Server Components & **Server Actions**.
-- **Node.js 22 LTS** imposé. ⚠️ La machine a Node **v24** → à trancher : pin 22 via `nvm`,
-  ou assumer 24 et le justifier dans la doc. (Next 16 tourne sur 24, mais l'énoncé dit 22.)
+- **Node.js 22 LTS** imposé par l'énoncé. **Décision retenue : rester sur Node 24** (installé
+  sur la machine). Justification à mettre dans la doc : Node 24 est la ligne **LTS active**
+  actuelle, pleinement supportée par Next.js 16 ; on évite de gérer plusieurs runtimes. Écart
+  mineur et vers une version plus récente — à mentionner en soutenance.
 - **TypeScript**, **Prisma ORM** (pas de SQL brut), **PostgreSQL**.
 - **Git**, un seul repository pour tout le projet, workflow **GitHub Flow**.
 - **SOLID / Clean Code**.

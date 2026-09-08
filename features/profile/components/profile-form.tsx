@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 /**
- * Formulaire de modification du profil : e-mail, nom d'utilisateur et
+ * Formulaire de modification du profil : nom d'utilisateur, e-mail et
  * (optionnellement) mot de passe. Les champs sont pré-remplis avec les valeurs
  * actuelles ; le mot de passe reste vide et n'est changé que s'il est saisi.
  */
@@ -40,25 +40,6 @@ export const ProfileForm = ({ profile }: { profile: UserProfile }) => {
       )}
 
       <div className="space-y-2">
-        <Label htmlFor="email">E-mail</Label>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          required
-          defaultValue={state?.values?.email ?? profile.email}
-          aria-invalid={!!state?.errors?.email}
-          aria-describedby={state?.errors?.email ? "email-error" : undefined}
-        />
-        {state?.errors?.email && (
-          <p id="email-error" className="text-sm text-destructive">
-            {state.errors.email[0]}
-          </p>
-        )}
-      </div>
-
-      <div className="space-y-2">
         <Label htmlFor="username">Nom d&apos;utilisateur</Label>
         <Input
           id="username"
@@ -77,6 +58,25 @@ export const ProfileForm = ({ profile }: { profile: UserProfile }) => {
         {state?.errors?.username && (
           <p id="username-error" className="text-sm text-destructive">
             {state.errors.username[0]}
+          </p>
+        )}
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="email">E-mail</Label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          required
+          defaultValue={state?.values?.email ?? profile.email}
+          aria-invalid={!!state?.errors?.email}
+          aria-describedby={state?.errors?.email ? "email-error" : undefined}
+        />
+        {state?.errors?.email && (
+          <p id="email-error" className="text-sm text-destructive">
+            {state.errors.email[0]}
           </p>
         )}
       </div>
@@ -105,9 +105,11 @@ export const ProfileForm = ({ profile }: { profile: UserProfile }) => {
         )}
       </div>
 
-      <Button type="submit" disabled={isPending}>
-        {isPending ? "Enregistrement…" : "Enregistrer"}
-      </Button>
+      <div className="flex justify-center pt-2">
+        <Button type="submit" disabled={isPending} className="min-w-40">
+          {isPending ? "Enregistrement…" : "Sauvegarder"}
+        </Button>
+      </div>
     </form>
   );
 };

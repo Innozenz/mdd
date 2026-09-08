@@ -6,7 +6,6 @@ import { auth } from "@/auth";
 import { getFeedArticles, type FeedSort } from "@/features/articles/data";
 import { ArticleCard } from "@/features/articles/components/article-card";
 import { FeedSort as FeedSortControl } from "@/features/articles/components/feed-sort";
-import { LogoutButton } from "@/features/auth/components/logout-button";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -18,9 +17,8 @@ const parseSort = (value: string | undefined): FeedSort =>
   value === "asc" ? "asc" : "desc";
 
 /**
- * Fil d'actualité (route protégée) : les articles des thèmes auxquels
- * l'utilisateur est abonné, triés du plus récent au plus ancien par défaut,
- * avec bascule du sens de tri.
+ * Fil d'actualité : les articles des thèmes auxquels l'utilisateur est abonné,
+ * triés du plus récent au plus ancien par défaut, avec bascule du sens de tri.
  */
 const FeedPage = async ({
   searchParams,
@@ -34,33 +32,22 @@ const FeedPage = async ({
   const articles = await getFeedArticles(session!.user.id, sort);
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 p-6">
-      <header className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold">Fil d&apos;actualité</h1>
-          <p className="text-sm text-muted-foreground">
-            Bonjour {session?.user?.name}.
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button asChild variant="outline" size="sm">
-            <Link href="/themes">Thèmes</Link>
-          </Button>
-          <Button asChild variant="outline" size="sm">
-            <Link href="/profile">Profil</Link>
-          </Button>
-          <LogoutButton />
-        </div>
-      </header>
+    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-8 sm:px-6">
+      <h1 className="sr-only">Fil d&apos;actualité</h1>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Button asChild size="sm">
+        <Button asChild>
           <Link href="/articles/new">
             <PenSquare className="size-4" aria-hidden="true" />
             Créer un article
           </Link>
         </Button>
-        {articles.length > 0 && <FeedSortControl current={sort} />}
+        {articles.length > 0 && (
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground">Trier par</span>
+            <FeedSortControl current={sort} />
+          </div>
+        )}
       </div>
 
       {articles.length === 0 ? (
@@ -82,7 +69,7 @@ const FeedPage = async ({
           ))}
         </ul>
       )}
-    </main>
+    </div>
   );
 };
 

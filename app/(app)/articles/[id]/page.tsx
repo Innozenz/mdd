@@ -31,7 +31,7 @@ const ArticlePage = async ({
   const comments = await getCommentsByArticle(article.id);
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 p-6">
+    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-8 sm:px-6">
       <Link href="/feed" className="text-sm text-primary hover:underline">
         ← Retour au fil
       </Link>
@@ -59,7 +59,7 @@ const ArticlePage = async ({
         <CommentForm articleId={article.id} />
         <CommentList comments={comments} />
       </section>
-    </main>
+    </div>
   );
 };
 

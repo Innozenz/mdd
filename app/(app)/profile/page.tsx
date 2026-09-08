@@ -7,16 +7,15 @@ import { getUserProfile } from "@/features/profile/data";
 import { getSubscribedTopics } from "@/features/subscriptions/data";
 import { ProfileForm } from "@/features/profile/components/profile-form";
 import { UnsubscribeButton } from "@/features/subscriptions/components/unsubscribe-button";
-import { LogoutButton } from "@/features/auth/components/logout-button";
 
 export const metadata: Metadata = {
   title: "Mon profil — MDD",
 };
 
 /**
- * Page de profil (route protégée) : consultation et modification des
- * informations (e-mail, nom d'utilisateur, mot de passe) et gestion des
- * abonnements (désabonnement).
+ * Page de profil : consultation et modification des informations (e-mail,
+ * nom d'utilisateur, mot de passe) et gestion des abonnements (désabonnement).
+ * Mise en page conforme aux maquettes (profil centré + abonnements en cartes).
  */
 const ProfilePage = async () => {
   const session = await auth();
@@ -32,46 +31,38 @@ const ProfilePage = async () => {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 p-6">
-      <header className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <Link href="/feed" className="text-sm text-primary hover:underline">
-            ← Retour au fil
-          </Link>
-          <h1 className="mt-2 text-2xl font-bold">Mon profil</h1>
+    <div className="mx-auto flex max-w-3xl flex-col gap-10 px-4 py-8 sm:px-6">
+      <section aria-labelledby="infos-title" className="flex flex-col gap-5">
+        <h1 id="infos-title" className="text-center text-2xl font-bold">
+          Profil utilisateur
+        </h1>
+        <div className="mx-auto w-full max-w-md">
+          <ProfileForm profile={profile} />
         </div>
-        <LogoutButton />
-      </header>
-
-      <section aria-labelledby="infos-title" className="flex flex-col gap-4">
-        <h2 id="infos-title" className="text-lg font-semibold">
-          Informations
-        </h2>
-        <ProfileForm profile={profile} />
       </section>
 
       <section aria-labelledby="subs-title" className="flex flex-col gap-4">
-        <h2 id="subs-title" className="text-lg font-semibold">
-          Mes abonnements
+        <h2 id="subs-title" className="text-center text-lg font-semibold">
+          Abonnements
         </h2>
 
         {subscribedTopics.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
+          <p className="text-center text-sm text-muted-foreground">
             Vous n&apos;êtes abonné à aucun thème.{" "}
             <Link href="/themes" className="text-primary hover:underline">
               Découvrir les thèmes
             </Link>
           </p>
         ) : (
-          <ul className="flex flex-col gap-3">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {subscribedTopics.map((topic) => (
               <li
                 key={topic.id}
-                className="flex items-center justify-between gap-4 rounded-lg border p-4"
+                className="flex flex-col gap-3 rounded-lg border p-4"
               >
-                <div>
+                <div className="flex-1">
                   <p className="font-medium">{topic.name}</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="mt-1 text-sm text-muted-foreground">
                     {topic.description}
                   </p>
                 </div>
@@ -81,7 +72,7 @@ const ProfilePage = async () => {
           </ul>
         )}
       </section>
-    </main>
+    </div>
   );
 };
 

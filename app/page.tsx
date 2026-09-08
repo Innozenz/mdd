@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { MddLogo } from "@/components/mdd-logo";
 
 export const Home = async () => {
   // La page d'accueil non connectée présente connexion / inscription ;
@@ -15,9 +16,7 @@ export const Home = async () => {
     <main className="min-h-screen flex flex-col items-center justify-center bg-background">
       <div className="text-center space-y-8">
         <div className="flex justify-center">
-          <div className="bg-primary text-primary-foreground text-4xl font-bold px-8 py-4 rounded-2xl">
-            MDD
-          </div>
+          <MddLogo className="h-24 w-auto" />
         </div>
 
         <h1 className="text-3xl font-bold text-foreground">

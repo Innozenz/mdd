@@ -46,6 +46,9 @@ const FeedPage = async ({
           <Button asChild variant="outline" size="sm">
             <Link href="/themes">Thèmes</Link>
           </Button>
+          <Button asChild variant="outline" size="sm">
+            <Link href="/profile">Profil</Link>
+          </Button>
           <LogoutButton />
         </div>
       </header>

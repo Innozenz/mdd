@@ -1,4 +1,4 @@
-Auteur : _[à compléter — Nom et prénom de l'étudiant]_
+Auteur : Fitzjean Maxime
 
 Version : 1.0.0
 

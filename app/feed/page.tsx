@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { auth } from "@/auth";
 import { LogoutButton } from "@/features/auth/components/logout-button";
@@ -28,6 +29,12 @@ const FeedPage = async () => {
         <strong className="text-foreground">{session?.user?.name}</strong>.
         Le fil d&apos;actualité sera disponible prochainement.
       </p>
+
+      <nav>
+        <Link href="/themes" className="text-primary hover:underline">
+          Parcourir les thèmes →
+        </Link>
+      </nav>
     </main>
   );
 };

@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useActionState } from "react";
 
 import { loginAction } from "@/features/auth/actions";
+import { MddLogo } from "@/components/mdd-logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -25,11 +25,9 @@ export const LoginForm = () => {
 
   return (
     <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle>Se connecter</CardTitle>
-        <CardDescription>
-          Accédez à votre fil d&apos;actualité MDD.
-        </CardDescription>
+      <CardHeader className="items-center text-center">
+        <MddLogo className="h-12" />
+        <CardTitle className="mt-2">Se connecter</CardTitle>
       </CardHeader>
 
       <form action={formAction} noValidate>

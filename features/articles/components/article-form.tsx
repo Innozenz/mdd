@@ -97,9 +97,11 @@ export const ArticleForm = ({ topics }: { topics: Topic[] }) => {
         )}
       </div>
 
-      <Button type="submit" disabled={isPending}>
-        {isPending ? "Publication…" : "Publier l'article"}
-      </Button>
+      <div className="flex justify-center pt-2">
+        <Button type="submit" disabled={isPending} className="min-w-40">
+          {isPending ? "Publication…" : "Créer"}
+        </Button>
+      </div>
     </form>
   );
 };

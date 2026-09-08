@@ -16,16 +16,16 @@ const NewArticlePage = async () => {
   const topics = await getTopics();
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 p-6">
+    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-8 sm:px-6">
       <header>
         <Link href="/feed" className="text-sm text-primary hover:underline">
           ← Retour au fil
         </Link>
-        <h1 className="mt-2 text-2xl font-bold">Créer un article</h1>
+        <h1 className="mt-2 text-2xl font-bold">Créer un nouvel article</h1>
       </header>
 
       <ArticleForm topics={topics} />
-    </main>
+    </div>
   );
 };
 

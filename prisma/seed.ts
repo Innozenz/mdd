@@ -99,7 +99,7 @@ async function main() {
     },
   });
 
-  const article3 = await prisma.article.create({
+  await prisma.article.create({
     data: {
       title: "Conteneuriser une base PostgreSQL avec Docker",
       content:

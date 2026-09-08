@@ -1,6 +1,16 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export const Home = () => {
+import { auth } from "@/auth";
+
+export const Home = async () => {
+  // La page d'accueil non connectée présente connexion / inscription ;
+  // un utilisateur déjà connecté est renvoyé vers son fil d'actualité.
+  const session = await auth();
+  if (session?.user) {
+    redirect("/feed");
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background">
       <div className="text-center space-y-8">

@@ -3,6 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getArticleById } from "@/features/articles/data";
+import { getCommentsByArticle } from "@/features/comments/data";
+import { CommentList } from "@/features/comments/components/comment-list";
+import { CommentForm } from "@/features/comments/components/comment-form";
 import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = {
@@ -25,6 +28,8 @@ const ArticlePage = async ({
     notFound();
   }
 
+  const comments = await getCommentsByArticle(article.id);
+
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 p-6">
       <Link href="/feed" className="text-sm text-primary hover:underline">
@@ -46,6 +51,14 @@ const ArticlePage = async ({
           {article.content}
         </div>
       </article>
+
+      <section aria-labelledby="comments-title" className="flex flex-col gap-6">
+        <h2 id="comments-title" className="text-lg font-semibold">
+          Commentaires ({comments.length})
+        </h2>
+        <CommentForm articleId={article.id} />
+        <CommentList comments={comments} />
+      </section>
     </main>
   );
 };

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { auth } from "@/auth";
 import { getTopics } from "@/features/topics/data";
+import { getSubscribedTopicIds } from "@/features/subscriptions/data";
 import { TopicCard } from "@/features/topics/components/topic-card";
 
 export const metadata: Metadata = {
@@ -17,7 +19,11 @@ export const metadata: Metadata = {
  * qui valide l'architecture de bout en bout.
  */
 const ThemesPage = async () => {
-  const topics = await getTopics();
+  const session = await auth();
+  const [topics, subscribedIds] = await Promise.all([
+    getTopics(),
+    getSubscribedTopicIds(session!.user.id),
+  ]);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-4xl flex-col gap-8 p-6">
@@ -39,7 +45,7 @@ const ThemesPage = async () => {
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {topics.map((topic) => (
             <li key={topic.id}>
-              <TopicCard topic={topic} />
+              <TopicCard topic={topic} isSubscribed={subscribedIds.has(topic.id)} />
             </li>
           ))}
         </ul>

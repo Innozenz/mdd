@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const NotFound = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background">
+    <main className="min-h-screen flex flex-col items-center justify-center bg-background">
       <div className="text-center space-y-6">
         <div className="text-8xl font-bold text-primary">404</div>
         <h1 className="text-2xl font-semibold text-foreground">
@@ -18,7 +18,7 @@ export const NotFound = () => {
           Retour à l&apos;accueil
         </Link>
       </div>
-    </div>
+    </main>
   );
 };
 

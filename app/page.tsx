@@ -12,7 +12,7 @@ export const Home = async () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background">
+    <main className="min-h-screen flex flex-col items-center justify-center bg-background">
       <div className="text-center space-y-8">
         <div className="flex justify-center">
           <div className="bg-primary text-primary-foreground text-4xl font-bold px-8 py-4 rounded-2xl">
@@ -39,7 +39,7 @@ export const Home = async () => {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
